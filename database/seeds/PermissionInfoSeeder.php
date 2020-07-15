@@ -47,6 +47,13 @@ class PermissionInfoSeeder extends Seeder
 	 		'description' => 'Administrador',
 	 		'full-access' => 'yes',
  		]);
+        //Rol Registered User
+        $roluser = Role::create([
+            'name' => 'Registered User',
+            'slug' => 'registereduser',
+            'description' => 'Registered User',
+            'full-access' => 'no',
+        ]);
 
         //Relacion tabla role_user
         $useradmin->roles()->sync([$roladmin->id]);
