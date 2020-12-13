@@ -18,8 +18,11 @@ class RoleController extends Controller
     {
         Gate::authorize('haveaccess','role.index');//Reglas de permisologia
 
-        $roles = Role::orderBy('id','Desc')->paginate(2);
-        return view('role.index',compact('roles'));
+        //$roles = Role::orderBy('id','Desc')->paginate(2);
+        //return view('role.index',compact('roles'));
+        $roles = Role::orderBy('id','Desc')->get();
+
+        return view('role.index',['roles'=> $roles]);
     }
 
     /**

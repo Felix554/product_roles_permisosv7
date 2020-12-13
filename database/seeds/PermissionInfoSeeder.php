@@ -67,7 +67,7 @@ class PermissionInfoSeeder extends Seeder
 	 		'slug' => 'role.index',
 	 		'description' => 'Un usuario puede listar los role',
  		]);
- 		//el slug pertenece al modelo role
+ 		//el slug pertenece al modelo role y su controlador es index
 
  		$permission_all[] = $permission->id;
 

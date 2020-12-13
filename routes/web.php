@@ -37,11 +37,15 @@ Route::get('/test', function () {
 
 });
 
-Route::resource('/role', 'RoleController')->names('role');
+Route::resource('role', 'RoleController')->names('role');
 
 //Van todos los metodos con exception de create y store ya q se utilizan al registrarse
 Route::resource('/user', 'UserController',['except'=>[
 	'create','store']])->names('user');
+
+Route::resource('admin/category','Admin\AdminCategoryController')->names('admin.category');
+
+Route::resource('admin/product','Admin\AdminProductController')->names('admin.product');
 
 
 /*Route::get('/test', function () {
