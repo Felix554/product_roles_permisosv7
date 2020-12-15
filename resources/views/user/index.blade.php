@@ -38,17 +38,17 @@
                               <td >{{ $user->name}}</td>
                               <td >{{ $user->email}}</td>
                               <td >
-                                @isset($user->roles[0]->name)
+                                @isset($user->roles[0]->name){{--Si tiene un rol asignado que lo muestr--}}
                                   {{ $user->roles[0]->name }}
                                 @endisset
                               </td>
                               <td >
-                                @can('view',[$user,['user.show','userown.show']])
+                                {{--@can('view',[$user,['user.show','userown.show']])--}}
                                   <a class="btn btn-info" href="{{ route('user.show',$user->id)}}">Show</a>
                                   <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                @endcan
+                                {{--@endcan--}}
                                 
-                                @can('view',[$user,['user.eidt','userown.edit']])
+                                {{--@can('view',[$user,['user.edit','userown.edit']]) --}}
                                   <a class="btn btn-success" href="{{ route('user.edit',$user->id)}}">Edit</a>
 
                                   <a href="#" class="btn btn-info"><i class="fas fa-user-edit">Editar</i></a>
@@ -66,7 +66,7 @@
                                   <a href="#" class="btn btn-sm bg-teal">
                                     <i class="fas fa-comments"></i>
                                   </a>
-                                @endcan
+                                {{--@endcan --}}
                                 @can('haveaccess','user.destroy')
                                 <form action="{{ route('user.destroy',$user->id)}}" method="POST">
                                   @csrf

@@ -14,9 +14,12 @@ class Role extends Model
     ];
 
     //Mostrar todos los usuario con dicho roll
+    //1 ROL puede tener Muchos Usuarios
     public function users(){
     	//withTimesTamps = para actualizar las fechas
     	return $this->belongsToMany('App\User')->withTimesTamps();
+        //belongsToMany = para indicar la relacion de muchos a muchos
+        //Llama a la clase User
     }
 
     public function permissions(){

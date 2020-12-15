@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Event;
 class EventServiceProvider extends ServiceProvider
 {
     /**
-     * The event listener mappings for the application.
+     * Las asignaciones del detector de eventos para la aplicación..
      *
      * @var array
      */
@@ -18,8 +18,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        //Editado por Felix 14/12/20
         Registered::class => [
-            'App\Listeners\RegisteredEvent',
+            'App\Listeners\RegisteredEvent',//Llamado al metodo que asisna el ROL de Registered User al registrarse un usuario directamente al sistema
         ],
         
     ];

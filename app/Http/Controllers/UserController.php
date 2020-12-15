@@ -54,7 +54,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $this->authorize('view', [$user,['user.show','userown.show']]);//Metodo de UserPolicy + parametros del user
+        //$this->authorize('view', [$user,['user.show','userown.show']]);//Metodo de UserPolicy + parametros del user
+
         //$this->authorize('haveaccess','role.edit');//Reglas de permisologia por roles OTRA FORMA
         $roles = Role::orderBy('name')->get();
 
@@ -67,10 +68,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)//Aqui me traigo los datos del usuario ppor parametro
+    public function edit(User $user)//Aqui me traigo los datos del usuario por parametro
     {
         
-        $this->authorize('update', [$user,['user.edit','userown.edit']]);//Metodo de UserPolicy + parametros del user
+        //$this->authorize('update', [$user,['user.edit','userown.edit']]);//Metodo de UserPolicy + parametros del user
         //$this->authorize('update', $user);//Metodo de UserPolicy + parametros del user
          //$this->authorize('haveaccess','role.edit');//Reglas de permisologia por roles OTRA FORMA
         $roles = Role::orderBy('name')->get();
@@ -89,7 +90,8 @@ class UserController extends Controller
     {
         $request->validate([
             'name'          => 'required|max:50|unique:users,name,'.$user->id,
-            'email'          => 'required|max:50|unique:users,email,'.$user->id
+            'email'         => 'required|max:50|unique:users,email,'.$user->id
+            //Tabla users + nombre del campo + variable $user
         ]);
 
         //dd($request->all());

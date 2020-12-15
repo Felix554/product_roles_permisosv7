@@ -41,7 +41,7 @@ class User extends Authenticatable
     //es:desde aqui
     //en: from here
     //Mostrar todos los roles de dicho usuario
-   /* public function roles(){
+    public function roles(){
 
         //withTimesTamps = para actualizar las fechas
         return $this->belongsToMany('App\JhonatanPermission\Models\Role')->withTimesTamps();
@@ -70,5 +70,5 @@ class User extends Authenticatable
         return 'false';
 
         //SE LLEVO A USERTRAIT PARA PODER SER REUTILIZADA EN OTROS SISTEMAS
-    }*/
+    }
 }
