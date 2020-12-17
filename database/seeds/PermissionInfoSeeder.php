@@ -75,7 +75,7 @@ class PermissionInfoSeeder extends Seeder
         $permission = Permission::create([
 	 		'name' => 'Show role',
 	 		'slug' => 'role.show',
-	 		'description' => 'Un usuario puede ver un role',
+	 		'description' => 'Un usuario puede ver todos los role',
  		]);
  		//el slug pertenece al modelo role
 
@@ -128,7 +128,7 @@ class PermissionInfoSeeder extends Seeder
         $permission = Permission::create([
 	 		'name' => 'Show user',
 	 		'slug' => 'user.show',
-	 		'description' => 'Un usuario puede ver un user',
+	 		'description' => 'Un usuario puede ver todos los user',
  		]);
  		//el slug pertenece al modelo user
 
@@ -158,7 +158,7 @@ class PermissionInfoSeeder extends Seeder
         $permission = Permission::create([
             'name' => 'Show own user',
             'slug' => 'userown.show',
-            'description' => 'Un usuario puede ver un own user',
+            'description' => 'Un usuario puede ver su propio usuario',
         ]);
         //el slug pertenece al modelo user
 
@@ -168,7 +168,7 @@ class PermissionInfoSeeder extends Seeder
         $permission = Permission::create([
             'name' => 'Edit own user',
             'slug' => 'userown.edit',
-            'description' => 'Un usuario puede edit  own user',
+            'description' => 'Un usuario puede edit su propio user',
         ]);
 		$permission_all[] = $permission->id;
 		/*//Permission user

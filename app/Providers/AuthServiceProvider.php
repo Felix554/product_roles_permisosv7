@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\User;
-use App\Policies\UserPolicy;
+use App\Policies\UserPolicy;//Se incluye la clase UserPolicy para usarla de proteccion de politicas
 /*
 GATE = Nos permite crear funciones anonimas, y permite crear funciones de acceso generico
 
@@ -21,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         //'App\Model' => 'App\Policies\ModelPolicy',
         User::class => UserPolicy::class,
+        //El modelo User se le aplicara las politicas UserPolicy
     ];
 
     /**
@@ -35,7 +36,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('haveaccess', function (User $user, $perm){
             //dd($user->id);
             //dd($perm);
-
             return $user->havePermission($perm);
              //return $user;
         });

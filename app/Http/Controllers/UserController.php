@@ -31,7 +31,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //$this->authorize('create', User::class);//Policy   1metodo de UserPolicy + EL Modelo solo al CREAR nada mas
+        //$this->authorize('create', User::class);
+        //Policy   Autoriza el metodo create aL Modelo User::class si se habilita la pilitica
         //return 'Create';
     }
 
@@ -54,7 +55,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //$this->authorize('view', [$user,['user.show','userown.show']]);//Metodo de UserPolicy + parametros del user
+        $this->authorize('view', [$user,['user.show','userown.show']]);
+        //Metodo view de la Class-UserPolicy + el modelo o inf a enviar + que es lo que quiero enviar
+        //El arreglo se refiere al slug de BD de la TB permissions
+        //Metodo de UserPolicy + parametros del user
 
         //$this->authorize('haveaccess','role.edit');//Reglas de permisologia por roles OTRA FORMA
         $roles = Role::orderBy('name')->get();
@@ -70,8 +74,9 @@ class UserController extends Controller
      */
     public function edit(User $user)//Aqui me traigo los datos del usuario por parametro
     {
-        
-        //$this->authorize('update', [$user,['user.edit','userown.edit']]);//Metodo de UserPolicy + parametros del user
+
+        //Este metodo funciona de forma individual por usuario que estan asociado a un Rol en particularidad que poseen unos permisos particulares
+        $this->authorize('update', [$user,['user.edit','userown.edit']]);//Metodo de UserPolicy + parametros del user
         //$this->authorize('update', $user);//Metodo de UserPolicy + parametros del user
          //$this->authorize('haveaccess','role.edit');//Reglas de permisologia por roles OTRA FORMA
         $roles = Role::orderBy('name')->get();

@@ -50,25 +50,25 @@ class User extends Authenticatable
 
     public function havePermission($permission){
 
-
         foreach ($this->roles as $role) {
             //Verifica que en la tabla roles tenga en el campo "full-access = yes"
             if ($role['full-access'] == 'yes') {//Tiene todos los accesos
-                return 'true full-access';
+                return true;
+                //return 'TodosAccesos';//TodosAccesos
             }
             //De lo contrario busca cada uno de los permisos asociados a dicho rol
             foreach ($role->permissions as $perm) {//Recorre la informacion
 
+                //dd($perm->slug);
                 //return $perm->slug;
                 
                 if ($perm->slug == $permission) {//Compara si lo tiene asignado
-                    return 'true por permiso';
+                    return true;
                 }
             }
         }
-
-        return 'false';
-
+        //return $perm->slug;
+        return false;
         //SE LLEVO A USERTRAIT PARA PODER SER REUTILIZADA EN OTROS SISTEMAS
     }
 }

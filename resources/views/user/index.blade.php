@@ -15,7 +15,7 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Tabla de Roles</h3>
+                <h3 class="card-title">Tabla de Usuarios</h3>
                 <a class="btn btn-primary float-right" href="{{ route('role.create')}}">Create</a><br>
               </div>
               <!-- /.card-header -->
@@ -43,12 +43,12 @@
                                 @endisset
                               </td>
                               <td >
-                                {{--@can('view',[$user,['user.show','userown.show']])--}}
+                                @can('view',[$user,['user.show','userown.show']])
                                   <a class="btn btn-info" href="{{ route('user.show',$user->id)}}">Show</a>
                                   <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                {{--@endcan--}}
+                                @endcan
                                 
-                                {{--@can('view',[$user,['user.edit','userown.edit']]) --}}
+                                @can('view',[$user,['user.edit','userown.edit']])
                                   <a class="btn btn-success" href="{{ route('user.edit',$user->id)}}">Edit</a>
 
                                   <a href="#" class="btn btn-info"><i class="fas fa-user-edit">Editar</i></a>
@@ -66,7 +66,7 @@
                                   <a href="#" class="btn btn-sm bg-teal">
                                     <i class="fas fa-comments"></i>
                                   </a>
-                                {{--@endcan --}}
+                                @endcan 
                                 @can('haveaccess','user.destroy')
                                 <form action="{{ route('user.destroy',$user->id)}}" method="POST">
                                   @csrf

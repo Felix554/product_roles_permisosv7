@@ -11,7 +11,7 @@ class UserPolicy
 
     /**
      * Determine whether the user can view any $users.
-     *
+     *$usera = Usuario autenticado
      * @param  \App\User  $user
      * @return mixed
      */
@@ -19,8 +19,6 @@ class UserPolicy
     {
         //
     }
-
-    
 
     /**
      * Determine whether the user can create $users.
@@ -31,6 +29,7 @@ class UserPolicy
     public function create(User $usera)
     {
         return $usera->id > 0;
+        //Quiero confirmar el Id del usuario autenticado y si es mayo a 0 podre ingresar y no sale el error 403 por no estar autorizado
     }
 
     /**
@@ -40,7 +39,7 @@ class UserPolicy
      * @param  \App\User  $$user
      * @return mixed
      */
-    public function update(User $usera, User $user, $perm=null)
+    public function update(User $usera, User $user, $perm=null)//User es el modelo
     {
         if ($usera->havePermission($perm[0])=== true) {
             return true;
@@ -62,14 +61,17 @@ class UserPolicy
      * @param  \App\User  $$user
      * @return mixed
      */
-    public function view(User $usera, User $user, $perm=null)
+    public function view(User $usera, User $user, $perm=null)//$usera usuario autenticado $user parametro enviado
     {
-        if ($usera->havePermission($perm[0])=== true) {
+        //Se llama $usera->havePermission($perm[0]) que esta en AuthServiceProvider
+        //Si tiene el Rol Full-Access que es global o el permiso user.show
+        //dd($usera->havePermission($perm)); 
+        if ($usera->havePermission($perm[0]) === true) {
             return true;
         }else
-        if ($usera->havePermission($perm[1])=== true) {
-            //return true;
+        if ($usera->havePermission($perm[1]) === true) {//Verificamos el permiso userown.show que es el 2 parametro de el controlador UserController en el metodo show
             return $usera->id === $user->id;
+            //Verificamos que el usuario login es = al usuario que le estoy pasando por parametro
 
         }else{
             return false;
