@@ -17,7 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('nombre')->unique();
             $table->string('slug')->unique();
+            //Para realizar la consulta por el nombre y no por el Id
             $table->unsignedBigInteger('category_id');//Un producto pertenece a una categoria, por lo que debes crear unos metodos en cada Modelo Categories y products
+            //Se coloca el nombre del modelo y luego _ nombre del campo Ejm category_id a quien hace relacion
             $table->bigInteger('cantidad')->unsigned()->default(0);
             $table->decimal('precio_actual',12,2)->default(0);
             $table->decimal('precio_anterior',12,2)->default(0);
@@ -34,10 +36,7 @@ class CreateProductsTable extends Migration
             $table->timestamps();
             //$table->unsignedBigInteger('user_id');
 
-   
             //Llave Foranea
-            //$table->foreign('category_id')->references('id')->on('categories');
-
              $table->foreign('category_id')->references('id')->on('categories');
             //Nombre del Modelo _ clavePK + id la referencia de la otra TB + nombre de la table
         });

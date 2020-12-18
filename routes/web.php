@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\User;
+use App\Product;
+use App\Category;
 use App\JhonatanPermission\Models\Role;
 use App\JhonatanPermission\Models\Permission;
 use Illuminate\Support\Facades\Gate;//Trabajar con los permisos
@@ -29,11 +31,45 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function () {
 
-	$user = User::find(2);
+	//$user = User::find(2);
 	//$user->roles()->sync([4]);
 	//return $user->havePermission('role.index');//PAra verificar si el usuario tiene este permiso
 	//Gate::authorize('haveaccess','role.show');
-	return $user;
+	//return $user;	
+	
+	/*$category = new Category();
+	$category->nombre		='NIÑAS';
+    $category->slug 		='ninas';
+    $category->descripcion 	='Segunda Categoria';
+	$category->save();*/
+
+	/*$prod= new Product();
+	$prod->nombre ='Producto 3';
+    $prod->slug ='Producto 3';
+    $prod->category_id = '2';
+    //$prod->cantidad ='1';
+    //$prod->precio_actual ='';
+    //$prod->precio_anterior ='';
+    //$prod->porcentaje_descuento ='';
+   /* $prod->descripcion_corta ='Producto 3';
+    $prod->descripcion_larga ='Producto TRES';
+    $prod->especificaciones ='Producto';
+    $prod->datos_de_interes ='Producto';
+    //$prod->visitas ='';
+    //$prod->ventas ='';
+    $prod->estado ='NUEVO';//estatus del producto
+    $prod->activo ='SI';
+    $prod->sliderprincipal='NO';
+    $prod->save();*/
+
+	//$prod= Product::find(3)->category;
+	//Obtenemos todo el registro de la categoria que esta enlazada con el producto 1
+	//$prod= Product::find(1)->first();
+	//Obtenemos los valores del producto
+	$cat=Category::find(2)->products;
+	//products hace relacion al metodo de 1 categoria puede tener N Productos segun la relacion 
+	
+	return $cat;
 
 });
 
