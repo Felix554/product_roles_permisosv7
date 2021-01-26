@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<meta http-equiv="X-AU-Compatible" content="ie=edge">
+	<title>Documento</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	
+	<!--JS-->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+	<!--VUE-->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+
+	<div class="contenido">
+		<div id="app">
+			<form action="">
+				<h1>Crear Categoría</h1>
+				<div class="form-group">
+					<label class="form-control" for="nombre">Nombre</label>
+					<input v-model='nombre' type="text" name="nombre" id="nombre">
+					<label class="form-control" for="slug">Slug</label>
+					<input readonly v-model='generarSlug'  type="text" name="slug" id="slug">
+					<label class="form-control" for="descripcion">Descripción</label>
+					<textarea name="descripcion" id="descripcion" cols="50" rows="10"></textarea>
+				</div>
+				<input type="submit" value="Guardar" class="btn btn-primary">
+			</form>
+			<br><br>
+
+			{{ nombre }}
+			<br>
+			{{ generarSlug }}
+		</div>
+		<script type="text/javascript">
+			var app = new Vue({
+				el:'#app',
+				data: {
+					nombre: 'Jhonatan Fernández'
+				},
+				computed: {
+					generarSlug: function(){
+
+						var char = {
+						"á":"a","é":"e","í":"i","ó":"o","ú":"u",
+						"Á":"A","É":"E","Í":"I","Ó":"O","Ú":"U",
+						"ñ":"n","Ñ":"n"," ":"-","_":"-"		
+						}
+						var expr =  /[áéíóúÁÉÍÓÚÑñ_ ]/;
+
+						return this.nombre.trim().replace(expr, function(e){
+						return char[e]
+						}).toLowerCase()
+						//return this.nombre.trim().replace(/ /,'-').toLowerCase()//trim -para eliminar espacios en blanco adelante y al  final de la frase, replace= reemplazar espacios en blancos por un - ; y el toLowerCase es para colocar todo en minuscula
+					}
+				}
+			});
+		</script>
+		
+	</div>
+
+</body>
+</html>

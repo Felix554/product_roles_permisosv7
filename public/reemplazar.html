@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DOCUMENTO</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
+</head>
+<body>
+
+	<div class="container">
+		<div id="app">
+			<form action="">
+				<h1>Crear Categoría</h1>
+				<div class="form-group">
+					<label for="nombre">Nombre</label>
+					<input v-model="nombre" 
+						@blur="getCategory"
+						@focus="div_aparecer=false"
+
+					class="form-control"type="text" name="nombre" id="nombre">
+					<label for="slug">Slug</label>
+					<input readonly v-model="generarSLug" class="form-control"type="text" name="slug" id="slug">
+					<div v-if="div_aparecer" v-bind:class="div_clase_slug">
+						{{ div_mensajeslug}}
+					</div>
+					<br v-if="div_aparecer">
+					<label for="descripcion">Descripcion</label>
+					<textarea class="form-control"name="descripcion" id="descripcion" cols="30" rows="5"></textarea>	
+				</div>
+
+				<input
+					:disabled = "deshabilitar_boton==1"
+				 type="submit" value="Guardar" name="guardar" class="btn btn-primary float-right">
+			</form>
+			<br><br>
+			{{ nombre}}
+			<br>
+			{{generarSLug}}
+			<br>
+			{{slug}}
+		</div>
+		
+	</div>
+
+	<script type="text/javascript">
+		
+		var app = new Vue({
+			el: '#app',
+			data:{
+				nombre:'Medina Félixff',
+				slug: '',
+				div_mensajeslug:'Slug Existe',
+				div_clase_slug:'badge badge-danger',
+				div_aparecer:false,
+				deshabilitar_boton:0
+			},
+			computed: {
+				generarSLug : function(){
+					var char= {
+						"á":"a","é":"e","í":"i","ó":"o","ú":"u",
+						"Á":"A","É":"E","Í":"I","Ó":"O","Ú":"U",
+						"ñ":"n","Ñ":"n"," ":"-","_":"-"		
+						}
+					var expr =/[áéíóúÁÉÍÓÚÑñ_ ]/g;
+
+					this.slug = this.nombre.trim().replace(expr, function(e){
+						return char[e]
+					}).toLowerCase()
+
+					return this.slug;
+
+					//return this.nombre.trim().replace(/ /,'-').toLowerCase()//trim -para eliminar espacios en blanco adelante y al  final de la frase, replace= reemplazar espacios en blancos por un -
+				}
+			},
+			methods:{
+				getCategory(){
+					let url = 'api/category/'+this.slug;
+					axios.get(url).then(response => {
+						
+						this.div_mensajeslug = response.data;
+
+						if(this.div_mensajeslug ==="Slug Disponible"){
+							this.div_clase_slug = 'badge badge-success';
+							this.deshabilitar_boton=0;
+						}else{
+							this.div_clase_slug = 'badge badge-danger';
+							this.deshabilitar_boton=1;
+						}
+						this.div_aparecer = true;
+					})
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

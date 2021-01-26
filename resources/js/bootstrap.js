@@ -8,7 +8,8 @@ window._ = require('lodash');
 
 try {
     window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+    //window.$ = window.jQuery = require('jquery');
+    //Se comento para que no de conflicto con la libreria Jquery de la tienda y varias funcionalidades
 
     require('bootstrap');
 } catch (e) {}

@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Gate;//Trabajar con los permisos
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return view('tienda.index');
 });
 
 Auth::routes();

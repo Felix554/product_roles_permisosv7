@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DOCUMENTO</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+</head>
+<body>
+
+	<div class="container">
+		<div id="app">
+			<div class="card card-success">
+				<div class="card-header">
+				<h3 class="card-title">Sección de Precios</h3>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Precio anterior</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+									<span class="input-group-text">$</span>
+									</div>
+									<input
+										v-model="precioanterior"
+										class="form-control" type="number" id="precioanterior" name="precioanterior" min="0" value="0" step=".01">    
+								</div>
+							</div>
+							<!-- /.form-group -->
+						</div>
+						<!-- /.col 1-->
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Precio actual</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+									<span class="input-group-text">$</span>
+									</div>
+									<input 
+										v-model="precioactual"
+										class="form-control" type="number" id="precioactual" name="precioactual" min="0" value="0" step=".01">           
+								</div>
+								<br>
+								<span id="descuento">
+									{{ generarDescuento}}
+								</span>
+							</div>
+							<!-- /.form-group -->
+						</div>
+						<!-- /.col 2-->
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Porcentaje de descuento</label>
+								<div class="input-group">                  
+									<input
+										v-model="porcentajededescuento"
+										class="form-control" type="number" id="porcentajededescuento" name="porcentajededescuento" step="any" min="0" MAX="100" value="0" >    <div class="input-group-prepend">
+									<span class="input-group-text">%</span>
+									</div>  
+								</div>
+								<br>
+								<div class="progress">
+									<div id="barraprogreso" class="progress-bar" role="progressbar" 
+									v-bind:style="{width: porcentajededescuento+'%'}"
+									aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ porcentajededescuento}}%</div>
+								</div>
+							</div>
+							<!-- /.form-group -->
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+				</div>
+			</div>
+			<!-- /.card PRECIO -->
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		
+		var app = new Vue({
+			el: '#app',
+			data:{
+				precioanterior:0,
+				precioactual:0,
+				descuento:0,
+				porcentajededescuento:0,
+				descuento_mensaje:'0',
+			},
+			computed: {
+				generarDescuento : function(){
+
+					if (this.porcentajededescuento > 100) {
+						
+						Swal.fire({
+						  icon: 'error',
+						  title: 'Oops...',
+						  text: 'El % de Descuento no puede ser mayor a 100!',
+						});
+
+						this.porcentajededescuento = 100;
+						this.descuento = (this.precioanterior * this.porcentajededescuento)/100;
+						this.precioactual = this.precioanterior - this.descuento;
+						this.descuento_mensaje = 'Este producto tiene un 100% de descuento, por lo tanto es gratuito';
+
+						return this.descuento_mensaje;
+
+					}else
+					if (this.porcentajededescuento < 0) {
+
+						Swal.fire({
+						  icon: 'error',
+						  title: 'Oops...',
+						  text: 'El % de Descuento no puede ser menor a 0!',
+						});
+
+						this.porcentajededescuento = 0;
+						this.descuento = (this.precioanterior * this.porcentajededescuento)/100;
+						this.precioactual = this.precioanterior - this.descuento;
+						this.descuento_mensaje = 'Este producto no tiene descuento';
+
+						return this.descuento_mensaje;
+
+					}else
+					if (this.porcentajededescuento > 0) {
+
+						this.descuento = (this.precioanterior * this.porcentajededescuento)/100;
+						this.precioactual = this.precioanterior - this.descuento;
+						if (this.porcentajededescuento == 100) {
+							this.descuento_mensaje = 'Este producto tiene un 100% de descuento, por lo tanto es gratuito';
+						}else{
+							this.descuento_mensaje = 'Hay un descuento de $US ' + this.descuento;
+						}
+
+						return this.descuento_mensaje;
+					}else{
+						this.descuento = '';
+						this.precioactual = this.precioanterior;
+						
+						this.descuento_mensaje = '';
+						
+
+						return this.descuento_mensaje;
+					}
+
+					
+				}
+			},
+		});
+	</script>
+
+</body>
+</html>
