@@ -32,8 +32,6 @@
 
 @section('contenido')
 
-
-
 <script src="/adminlte/ckeditor/ckeditor.js"></script>
 
 

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('plantilla.admin1')
 
 
 @section('titulo','Crear Categoría')
@@ -16,7 +16,7 @@
   <!-- Default box -->
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Administración de Categorias</h3>
+      <h3 class="card-title">Crear de Categorias</h3>
 
       <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -47,11 +47,7 @@
 
 
         <br><br>
-        @{{ nombre}}
-        {{--<br>
-        @{{generarSLug}}
-        <br>
-        @{{slug--}}
+       
     </div>
       <!-- /.card-body -->
   </div>

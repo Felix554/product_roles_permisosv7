@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('plantilla.admin1')
 
 @section('titulo', 'Administración de Usuario')
 
@@ -16,7 +16,8 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Tabla de Usuarios</h3>
-                <a class="btn btn-primary float-right" href="{{ route('role.create')}}">Create</a><br>
+                {{--<a class="btn btn-primary float-right" href="{{ route('role.create')}}">Create</a>--}}
+                <br>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -135,6 +136,7 @@
 @endsection
 
 @section('script')
+<!-- script Propios de tablas Dinamicas con el buscador de todos los campos Ejemplo role.index -->
 <!-- DataTables -->
 <script src="adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('plantilla.admin1')
 
 
 @section('titulo','Administración de Categoría')
@@ -13,7 +13,7 @@
         <div id="confirmareliminar" class="row">
         <span style="display: none;" id="urlbase">{{ route('admin.category.index')}}</span>{{--URL Base PARA ENVIAR ID--}}
         
-        @include('custom.modal_eliminar')
+        @include('custom.modal_eliminar') <!-- Nos muestra el modal para comfirmar la eliminacion -->
           <div class="col-12">
             <div class="card">
               <div class="card-header">

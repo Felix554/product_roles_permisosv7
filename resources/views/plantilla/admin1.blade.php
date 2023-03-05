@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -9,67 +9,58 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
+  @yield('estilos')
   <!-- Theme style -->
   <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css">
 
-  @yield('estilos')
+    <!-- jQuery -->
+  <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+
+  <!-- Bootstrap 4 -->
+<script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   
+
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
-  <!-- Navbar -->
+  <!-- Navbar  Editar-->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
+        <!--LOGO-->
+        <a class="navbar-brand" href="{{ url('/') }}">
+        {{ config('app.name', 'Laravel') }}
+        </a>
+        <!--./LOGO-->
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/adminlte/index3.html" class="nav-link">Home</a>
+        <a href="{{ url('/role') }}" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      <!--<li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
-      </li>
+      </li>-->
+    @can('haveaccess','role.index')
+      <li class="nav-item"><a href="{{route('role.index')}}" class="nav-link">Role</a></li>
+    @endcan
+    @can('haveaccess','user.index')
+      <li class="nav-item"><a href="{{route('user.index')}}" class="nav-link">User</a></li>
+    @endcan
     </ul>
 
-
-    <div id="api_search_autocomplete" style="position: relative">
-      <!-- SEARCH FORM -->
-      <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search"
-          name="nombre"
-          v-model="palabra_a_buscar"
-          v-on:keyup="autoComplete" 
-          v-on:keyup.enter="SubmitForm" 
-          >
-          <div class="input-group-append">
-            <button
-              id="miboton"
-              ref="SubmitButtonSearch"
-              class="btn btn-navbar" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
+    <!-- SEARCH FORM -->
+    <!--<form class="form-inline ml-3">
+      <div class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
-      </form>
-
-      <div class="panel-footer" v-if="resultados.length" style="position: absolute; z-index:3; left: 9px;" >
-        <ul class="list-group">
-          <li class="list-group-item" v-for="resultado in resultados">
-
-            <a href="#" class="dropdown-item" 
-              v-on:click.prevent="select(resultado)">
-              <span v-html="resultado.name_negrita"></span>
-            </a>
-
-          </li>
-        </ul>
       </div>
-
-    </div>
-
+    </form>-->
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -83,7 +74,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="/adminlte/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -115,7 +106,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="/adminlte/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="../../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -137,7 +128,7 @@
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <!--<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">15 Notifications</span>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
@@ -156,18 +147,49 @@
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
+        </div>-->
       </li>
-      <li class="nav-item">
+      <!--<li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
         </a>
-      </li>
+      </li>-->
     </ul>
+    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+                    </ul>
   </nav>
   <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
+  <!-- Main Sidebar Container Verificar-->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/adminlte/index3.html" class="brand-link">
@@ -180,7 +202,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="http://127.0.0.1:8000/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Alexander Pierce</a>
@@ -192,37 +214,36 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               <!-- Left Side Of Navbar -->
+         
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon far fa-address-book"></i>
               <p>
-                Dashboard
+                Admin
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              @can('haveaccess','role.index')
               <li class="nav-item">
-                <a href="/adminlte/index.html" class="nav-link">
+                <a href="{{route('role.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
+                  <p>Roles</p>
                 </a>
               </li>
+              @endcan
+              @can('haveaccess','user.index')
               <li class="nav-item">
-                <a href="/adminlte/index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
+                <a href="{{route('user.index')}}" class="nav-link">
+                  <i class="fas fa-user-alt"></i>
+                  <!--<i class="far fa-circle nav-icon"></i>-->
+                  <p>Usuarios</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="http://127.0.0.1:8000/adminlte/index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
+               @endcan
             </ul>
           </li>
-
-
 
 
           <!-- Categorias -->
@@ -276,8 +297,23 @@
             </ul>
           </li>
 
-
-
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../index.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard v1</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item">
             <a href="../widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -675,7 +711,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="http://127.0.0.1:8000/adminlte/starter.html" class="nav-link">
+                <a href="../../starter.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Starter Page</p>
                 </a>
@@ -791,15 +827,14 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{route('admin')}}">Inicio</a></li>
-              @yield('breadcrumb')
-              
+              <li class="breadcrumb-item"><a href="{{ url('/role') }}">Home</a></li>
+              <li class="breadcrumb-item active">@yield('titulo')</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
+    
     <!-- Main content -->
     <section class="content">
 
@@ -858,21 +893,32 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+<!--<script src="adminlte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!--<script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="/adminlte/dist/js/adminlte.min.js"></script>
+<!--<script src="/adminlte/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="/adminlte/dist/js/demo.js"></script>
+<!--<script src="/adminlte/dist/js/demo.js"></script>-->
 
-<!-- Libreria para alert mas creativos y animados -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-<!-- Scripts -->
+@yield('script')
+<!-- script Propios de tablas Dinamicas con el buscador de todos los campos Ejemplo role.index -->
+<!-- DataTables -->
+<!--<script src="adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- AdminLTE App -->
+<!--<script src="/adminlte/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<!--<script src="adminlte/dist/js/demo.js"></script>-->
+
 
 <script src="{{ asset('js/app_admin.js') }}" defer></script>
 
-@yield('scripts')
+
+
+
 </body>
 </html>

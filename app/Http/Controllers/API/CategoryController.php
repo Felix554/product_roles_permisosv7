@@ -51,7 +51,7 @@ class CategoryController extends Controller
          else{
             return 'Slug Disponible';
          }
-        //Quero que me busque la categoria por el campo slug segun el parametro enviado y que sea el primer registro
+        //Quiero que me busque la categoria por el campo slug segun el parametro enviado y que sea el primer registro
     }
 
     /**

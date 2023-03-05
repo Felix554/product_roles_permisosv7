@@ -51,7 +51,7 @@
 						"Á":"A","É":"E","Í":"I","Ó":"O","Ú":"U",
 						"ñ":"n","Ñ":"n"," ":"-","_":"-"		
 						}
-						var expr =  /[áéíóúÁÉÍÓÚÑñ_ ]/;
+						var expr =  /[áéíóúÁÉÍÓÚÑñ_ ]/g;
 
 						return this.nombre.trim().replace(expr, function(e){
 						return char[e]

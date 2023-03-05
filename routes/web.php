@@ -19,60 +19,78 @@ use Illuminate\Support\Facades\Gate;//Trabajar con los permisos
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     //return view('welcome');
     return view('tienda.index');
+});//
+
+Route::get('/send-mail', function(){
+
+	$details=[
+		'title'=>'Mail from Surfside Media',
+		'body'=>'Mail from de Testing por SMTP'
+	];
+
+	$data="PRUEBA";
+	/*$data= array(
+		'name'=> 'nombre y proyecto'
+	);*/
+	//Mail::send('leokhoa@gmail.com', 'Hi leokhotta', 'Pruebacxc.')->to('felix554@gmail.com','Felix');
+
+	
+	//mail::to('felix554@gmail.com');
+
+
+
+	Mail::to('felix554@gmail.com')->send(new \App\Mail\TestMail($data));
+	/*Mail::send('emails.TestMail', $data, function($data){
+		$data->from('felix554@gmail.com', 'Envio de correo');
+		$data->to('felix554@gmail.com')->subject('Prueba de envio de correo felix');
+
+	});*/
+ 
+	echo "Correo enviado con exito";
+
 });
 
-Auth::routes();
+Route::get('contact', function () {
+    //return view('welcome');
+    return view('contact');
+});//
+
+Route::post('messages', function(){
+	//Enviar correo
+
+	return request()->all();
+	//$data['nombre']='Felix';
+	//$data['apellido']='Prueba';
+	//$data['email']='felix554@gmail.com';
+
+	//Mail::send('email.messages', $data, function($message) use ($data){
+
+		//$message->from($data['email'], $data['nombre'])
+		//->to('felix554@gmail.com','Felix');
+
+	//});
+
+	//return back();//Nos redirecciona a la URL anterior
+	//dar respuesta
+
+	//return request()->all();
+
+})->name('messages');
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/admin', function () {
 
+	return view('plantilla.admin');
 
-Route::get('/test', function () {
-
-	//$user = User::find(2);
-	//$user->roles()->sync([4]);
-	//return $user->havePermission('role.index');//PAra verificar si el usuario tiene este permiso
-	//Gate::authorize('haveaccess','role.show');
-	//return $user;	
-	
-	/*$category = new Category();
-	$category->nombre		='NIÑAS';
-    $category->slug 		='ninas';
-    $category->descripcion 	='Segunda Categoria';
-	$category->save();*/
-
-	/*$prod= new Product();
-	$prod->nombre ='Producto 3';
-    $prod->slug ='Producto 3';
-    $prod->category_id = '2';
-    //$prod->cantidad ='1';
-    //$prod->precio_actual ='';
-    //$prod->precio_anterior ='';
-    //$prod->porcentaje_descuento ='';
-   /* $prod->descripcion_corta ='Producto 3';
-    $prod->descripcion_larga ='Producto TRES';
-    $prod->especificaciones ='Producto';
-    $prod->datos_de_interes ='Producto';
-    //$prod->visitas ='';
-    //$prod->ventas ='';
-    $prod->estado ='NUEVO';//estatus del producto
-    $prod->activo ='SI';
-    $prod->sliderprincipal='NO';
-    $prod->save();*/
-
-	//$prod= Product::find(3)->category;
-	//Obtenemos todo el registro de la categoria que esta enlazada con el producto 1
-	//$prod= Product::find(1)->first();
-	//Obtenemos los valores del producto
-	$cat=Category::find(2)->products;
-	//products hace relacion al metodo de 1 categoria puede tener N Productos segun la relacion 
-	
-	return $cat;
-
-});
+})->name('admin');
 
 Route::resource('role', 'RoleController')->names('role');
 
@@ -83,6 +101,69 @@ Route::resource('/user', 'UserController',['except'=>[
 Route::resource('admin/category','Admin\AdminCategoryController')->names('admin.category');
 
 Route::resource('admin/product','Admin\AdminProductController')->names('admin.product');
+
+Route::get('cancelar/{ruta}', function($ruta){
+	return redirect()->route($ruta)->with('cancelar','Acción cancelada!');
+})->name('cancelar');
+
+	
+
+
+Route::get('/test', function () {
+
+	$user = User::find(2);//Buscar el Usuario con ID =2
+
+	//Asignar Rol a un usuario con el Id 2
+	//$user->roles()->sync([2]);
+
+	//return $user->roles;// Se accede a la Informaci[on del Usuario mas el Rol Asignado que fue el 2]
+
+	//Llamada del metodo havePermission del Modelo User
+
+	//return $user->havePermission('role.index');//PAra verificar si el usuario tiene este permiso en particular
+	// Dicho m[etodo esta en el Modelo User
+
+
+	Gate::authorize('haveaccess','role.show');
+	//return $user;	
+	
+	//$category = new Category();
+	//$category->nombre		='NIÑAS';
+    //$category->slug 		='ninas';
+    //$category->descripcion 	='Segunda Categoria';
+	//$category->save();
+
+	//$prod= new Product();
+	//$prod->nombre ='Producto 3';
+    //$prod->slug ='Producto 3';
+    //$prod->category_id = '2';
+    //$prod->cantidad ='1';
+    //$prod->precio_actual ='';
+    //$prod->precio_anterior ='';
+    //$prod->porcentaje_descuento ='';
+    //$prod->descripcion_corta ='Producto 3';
+    //$prod->descripcion_larga ='Producto TRES';
+    //$prod->especificaciones ='Producto';
+    //$prod->datos_de_interes ='Producto';
+    //$prod->visitas ='';
+    //$prod->ventas ='';
+    //$prod->estado ='NUEVO';//estatus del producto
+    //$prod->activo ='SI';
+   // $prod->sliderprincipal='NO';
+    //$prod->save();
+
+	//$prod= Product::find(3)->category;
+	//Obtenemos todo el registro de la categoria que esta enlazada con el producto 1
+	//$prod= Product::find(1)->first();
+	//Obtenemos los valores del producto
+	//$cat=Category::find(2)->products;
+	//products hace relacion al metodo de 1 categoria puede tener N Productos segun la relacion 
+	
+	//return $cat;
+
+});
+
+
 
 
 /*Route::get('/test', function () {

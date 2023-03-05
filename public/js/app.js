@@ -50706,75 +50706,6 @@ var apicategory = new Vue({
     }
   }
 });
-/*const apicategory = new Vue({
-    el: '#apicategory',
-    data: {
-    nombre: ' ',
-    slug: '',
-    div_mensajeslug: 'Slug Existe',
-    div_clase_slug: 'badge badge-danger',
-    div_aparecer: false,
-    deshabilitar_boton: 1
-  },
-  computed: {
-    generarSLug: function() {
-      var char = {
-        "á": "a",
-        "é": "e",
-        "í": "i",
-        "ó": "o",
-        "ú": "u",
-        "Á": "A",
-        "É": "E",
-        "Í": "I",
-        "Ó": "O",
-        "Ú": "U",
-        "ñ": "n",
-        "Ñ": "n",
-        " ": "-",
-        "_": "-"
-      };
-      var expr = /[áéíóúÁÉÍÓÚÑñ_ ]/g;
-      this.slug = this.nombre.trim().replace(expr, function (e) {
-        return char[e];
-      }).toLowerCase();
-      return this.slug; //return this.nombre.trim().replace(/ /,'-').toLowerCase()//trim -para eliminar espacios en blanco adelante y al  final de la frase, replace= reemplazar espacios en blancos por un -
-    }
-  },
-  methods: {
-    getCategory: function() {
-      if(this.slug){
-        let url = '/api/category/' + this.slug;
-        axios.get(url).then(response=> {
-        this.div_mensajeslug = response.data;
-
-        if (this.div_mensajeslug === "Slug Disponible") {
-          this.div_clase_slug = 'badge badge-success';
-          this.deshabilitar_boton = 0;
-        } else {
-          this.div_clase_slug = 'badge badge-danger';
-          this.deshabilitar_boton = 1;
-        }
-
-        
-        });
-
-      }else{
-        this.div_mensajeslug = "Debe indicar una categoría"
-        this.div_clase_slug = 'badge badge-danger';
-        this.deshabilitar_boton = 1;
-      }
-
-      this.div_aparecer = true;
-    }
-  },
-  /*unted(){
-    if(document.getElementById('editar').innerHTML){
-      this.nombre=document.getElementById('nombretemp').innerHTML;  
-      this.deshabilitar_boton = 0;
-   }
-  } 
-});*/
 
 /***/ }),
 
@@ -51026,39 +50957,6 @@ var apiproduct = new Vue({
 __webpack_require__(/*! ./tienda/bootstrap */ "./resources/js/tienda/bootstrap.js");
 
 __webpack_require__(/*! ./comun */ "./resources/js/comun.js");
-/*window.Vue = require('vue');
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-/*Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-/*if (document.getElementById('app')) {
-      const app = new Vue({
-        el: '#app',
-      });
-}
-
-if (document.getElementById('apicategory')) {
-    require('./apicategory');
-}
-
-if (document.getElementById('confirmareliminar')) {
-    require('./confirmareliminar');
-}*/
 
 /***/ }),
 
@@ -51267,8 +51165,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\rolesv7\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\rolesv7\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp\www\GitHub\rolesv7\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp\www\GitHub\rolesv7\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

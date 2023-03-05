@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         //Permisos q se aplican a usuarios logeados
         Gate::define('haveaccess', function (User $user, $perm){
-            //dd($user->id);
+            //dd($user->id);//Para identificar el ID con que estoy LOGIN
             //dd($perm);
             return $user->havePermission($perm);
              //return $user;

@@ -14,4 +14,8 @@ class Product extends Model
    		//return $this->belongsTo('App\Category');
 
    }
+
+   public function images(){
+    	return $this->morphMany('App\Image','imageable');//Relacion Polimorfica
+    }
 }

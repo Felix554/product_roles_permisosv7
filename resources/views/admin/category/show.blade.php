@@ -1,4 +1,4 @@
-@extends('plantilla.admin')
+@extends('plantilla.admin1')
 
 
 @section('titulo','Ver Categoría')

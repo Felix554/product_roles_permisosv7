@@ -2,6 +2,10 @@
 
 namespace App\JhonatanPermission\Traits;
 
+//RASGOS DE USUARIO
+//TRAIT
+//Es similar a una clase, pero con el único objetivo de agrupar funcionalidades muy específicas y de una manera coherente.
+//No se puede instanciar directamente un Trait.
 trait UserTrait{
 	//es:desde aqui
     //en: from here
